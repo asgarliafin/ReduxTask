@@ -58,8 +58,8 @@ function Cart() {
       <h1>Total price {totalPrice()}</h1>
       {cart?.map((e, i) => (
         <div className="cartItem" key={i}>
-          <h3>{i}</h3>
-          <img src={e?.image} style={{ height: 50 }} />
+          <h3>{i + 1}</h3>
+          <img src={e?.image} style={{ height: 50, width : 50 , borderRadius : "100%"}} />
           <div className="title">{e?.title}</div>
           <div className="price">{e?.price}$</div>
           <div style={{ display: "flex", alignItems: "center" }}>
@@ -73,7 +73,7 @@ function Cart() {
             </IconButton>
           </div>
 
-          <Button onClick={() => handleRemove(e.id)}>remove</Button>
+          <Button onClick={() => handleRemove(e.id)}>Delete</Button>
         </div>
       ))}
       <form id="demo" onSubmit={handleSubmit}>

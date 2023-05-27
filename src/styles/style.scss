@@ -4,15 +4,30 @@
     box-sizing: border-box;
 }
 
+.Landing{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    row-gap: 40px;
+    padding: 0 15%;
+    color: white;
+}
+
 .cartItem {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    border: 1px solid black;
-    padding: 0 10px;
+    border: 2px solid black;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: darkred !important;
+    border-radius: 10px;
+    padding: 7.5px 15px;
+
+    .title{
+        width: calc((100% / 12) * 4);
+    }
 }
+
+
 .icon{
     width: 100%;
 }
