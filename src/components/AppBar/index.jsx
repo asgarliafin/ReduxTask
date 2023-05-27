@@ -1,25 +1,32 @@
 import * as React from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
-import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
-import MenuItem from "@mui/material/MenuItem";
-import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
-import AdbIcon from "@mui/icons-material/Adb";
+import {
+  AppBar,
+  Box,
+  Toolbar,
+  IconButton,
+  Typography,
+  Menu,
+  Container,
+  Avatar,
+  Button,
+  Tooltip,
+  MenuItem,
+} from "@mui/material";
+
+import {
+  Menu as MenuIcon,
+  ShoppingBasket as ShoppingBasketIcon,
+  Adb as AdbIcon,
+} from "@mui/icons-material";
+
 import { Link } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext/AuthProvider";
 import { useSelector } from "react-redux";
+import { AuthContext } from "../../context/Auth";
+
 const pages = ["Products"];
 const settings = ["Logout"];
 
-function ResponsiveAppBar() {
+function ResAppBar() {
   const cart = useSelector((state) => state);
   const { isAuth, setIsAuth } = React.useContext(AuthContext);
 
@@ -53,7 +60,7 @@ function ResponsiveAppBar() {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
-            variant="h6"
+            variant="h5"
             noWrap
             component="a"
             href="/"
@@ -246,4 +253,4 @@ function ResponsiveAppBar() {
     </AppBar>
   );
 }
-export default ResponsiveAppBar;
+export default ResAppBar;

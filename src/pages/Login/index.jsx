@@ -1,21 +1,26 @@
 import * as React from "react";
-import Avatar from "@mui/material/Avatar";
-import CssBaseline from "@mui/material/CssBaseline";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
+import {
+  Avatar,
+  CssBaseline,
+  FormControlLabel,
+  Checkbox,
+  Paper,
+  Box,
+  Grid,
+  Typography,
+  createTheme,
+  ThemeProvider,
+  Button,
+  LinearProgress,
+} from "@mui/material";
 
-import Paper from "@mui/material/Paper";
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
+import * as Yup from "yup";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Typography from "@mui/material/Typography";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { Button, LinearProgress } from "@mui/material";
 import { Formik, Form, Field } from "formik";
 import { TextField } from "formik-mui";
-import * as Yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext/AuthProvider";
+import { AuthContext } from "../../context/Auth";
+import Bg from '../../assets/loginBg.png';
 
 const SignIn = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Required"),
@@ -43,7 +48,7 @@ export default function Login() {
           md={7}
           sx={{
             backgroundImage:
-              "url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkovC9a5Je29Pg-DaKoC5fPi8s2JAdD5wNqx1esDO7uEv4r9LFFAl1Xu-IZKZYBRMqBz4&usqp=CAU)",
+              `url(${Bg})`,
             backgroundRepeat: "no-repeat",
             backgroundColor: (t) =>
               t.palette.mode === "dark"

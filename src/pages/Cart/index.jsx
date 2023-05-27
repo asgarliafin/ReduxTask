@@ -7,7 +7,7 @@ import FormHelperText from "@mui/joy/FormHelperText";
 import Input from "@mui/joy/Input";
 import Button from "@mui/joy/Button";
 import { Container, IconButton } from "@mui/material";
-import { AuthContext } from "../context/AuthContext/AuthProvider";
+import { AuthContext } from "../../context/Auth";
 import { useDispatch, useSelector } from "react-redux";
 function Cart() {
   const { isAuth } = useContext(AuthContext);

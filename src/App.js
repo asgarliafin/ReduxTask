@@ -1,24 +1,17 @@
-import ResponsiveGrid from "./components/ResponsiveGrid";
-import Layout from './Layouts/Layout'
 import { Routes, Route } from 'react-router-dom'
-import Login from './pages/Login'
-import Register from "./pages/Register";
-import Cart from "./pages/Cart";
 import MainRoute from "./MainRoute";
-import Landing from "./pages/Landing";
-import Admin from "./pages/Admin";
-import AdminOrders from "./pages/AdminOrders";
+import Grid from "./components/Grid";
+import Layout from './Layouts'
+import { Admin, AdminOrders, Landing, Cart, Login, Register } from './pages';
 
 function App() {
-
   return (
-
     <div className="App">
       <Routes>
         <Route element={<Layout />}>
           <Route element={<MainRoute />}>
             <Route path="/Cart" element={<Cart />} />
-            <Route path="/Products" element={<ResponsiveGrid />} />
+            <Route path="/Products" element={<Grid />} />
             <Route exact path="/admin" element={<Admin />}></Route>
             <Route exact path="/adminOrders" element={<AdminOrders />}></Route>
           </Route>
@@ -27,13 +20,7 @@ function App() {
           <Route path="/Register" element={<Register />} />
         </Route>
       </Routes>
-
     </div>
-
-
-
-
-
   );
 }
 

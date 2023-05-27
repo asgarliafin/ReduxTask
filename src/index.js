@@ -1,27 +1,19 @@
-import React from 'react';
+import { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
-import App from './App';
 import { ReactQueryDevtools } from 'react-query/devtools'
-import { QueryClient, QueryClientProvider } from "react-query";
-import AuthProvider from './context/AuthContext/AuthProvider';
-import { createStore } from 'redux';
-import CartReducer from './redux/reducers/CartReducer';
+import { QueryClientProvider } from "react-query";
 import { Provider } from 'react-redux';
-import './styles/style.scss';
+import AuthProvider from './context/Auth';
+import App from './App';
+import store from './redux/store';
+import queryClient from './query';
+import './style/index.scss';
 
-const store = createStore(CartReducer)
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      refetchOnMount: false,
-      refetchOnWindowFocus: false
-    }
-  }
-});
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
-  <React.StrictMode>
+  <StrictMode>
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <AuthProvider>
@@ -32,5 +24,5 @@ root.render(
       </BrowserRouter>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
-  </React.StrictMode>
+  </StrictMode>
 );

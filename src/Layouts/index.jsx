@@ -1,10 +1,11 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
-import ResponsiveAppBar from '../components/ResponsiveAppBar'
+import AppBar from '../components/AppBar'
+
 function Layout() {
   return (
     <>
-        <ResponsiveAppBar></ResponsiveAppBar>
+        <AppBar></AppBar>
         <Outlet/> 
     </>
   )
