@@ -69,9 +69,13 @@ export default function DataTable() {
       cellClassName: 'mainDelete',
       renderCell: (params) => (
         <Button
-          variant="outlined"
+          style={{
+            background : "darkred",
+            color : "white"
+          }}
           color="error"
           onClick={() => handleClickOpen(params.row.id)}
+    
         >
           Delete
 
@@ -88,7 +92,11 @@ export default function DataTable() {
           variant="outlined"
           color="warning"
           onClick={() => handleEditOpen(params.row.id)}
-        >
+          style = {{
+            background : "darkgreen",
+            color : "white"
+          }}
+       >
           Edit
         </Button>
       ),

@@ -1,76 +1,65 @@
-export default function CartReducer(state, action) {
-    if (state === undefined) {
-        const localStorageCart = localStorage.getItem('cart');
-        if (localStorageCart) {
-            return JSON.parse(localStorageCart)
-        }
-        else {
-            return []
-        }
+import * as actionTypes from '../action/actionTypes';
 
-    }
-    else if (action.type === 'REMOVE_ITEM') {
-        const newCart = [...state];
-        const prodIndex = newCart.findIndex((e) => e.id === action.payload);
-        if (prodIndex !== -1) {
-            newCart.splice(prodIndex, 1);
-        }
+const initialState = [];
 
-        localStorage.setItem("cart", JSON.stringify(newCart));
+const Reducer = (state = initialState, action) => {
+    switch (action.type) {
+        case actionTypes.REMOVE_ITEM:
+            const newCart = [...state];
+            const prodIndex = newCart.findIndex((e) => e.id === action.payload);
+            if (prodIndex !== -1) {
+                newCart.splice(prodIndex, 1);
+            }
+            localStorage.setItem("cart", JSON.stringify(newCart));
+            return newCart;
 
-        return newCart
+        case actionTypes.ADD_ITEM:
+            const existingItemIndex = state.findIndex((item) => item.id === action.payload);
 
-    }
-    else if (action.type === 'ADD_ITEM') {
-        const existingItemIndex = state.findIndex((item) => item.id === action.payload);
+            if (existingItemIndex !== -1) {
+                const updatedCart = [...state];
+                updatedCart[existingItemIndex] = {
+                    ...updatedCart[existingItemIndex],
+                    count: updatedCart[existingItemIndex].count + 1,
+                };
+                localStorage.setItem("cart", JSON.stringify(updatedCart));
+                return updatedCart;
+            } else {
+                const newItem = {
+                    id: action.payload.id,
+                    price: action.payload.price,
+                    title: action.payload.title,
+                    description: action.payload.description,
+                    image: action.payload.image,
+                    count: 1,
+                };
+                const updatedCart = [...state, newItem];
+                localStorage.setItem("cart", JSON.stringify(updatedCart));
+                return updatedCart;
+            }
 
-        if (existingItemIndex !== -1) {
-            const updatedCart = [...state];
-            updatedCart[existingItemIndex] = {
-                ...updatedCart[existingItemIndex],
-                count: updatedCart[existingItemIndex].count + 1,
-            };
+        case actionTypes.ADD_ONE:
+            const updatedCartAddOne = [...state];
+            const elemenToUpdateAddOne = updatedCartAddOne.find((e) => e.id === action.payload);
+            elemenToUpdateAddOne.count = elemenToUpdateAddOne.count + 1;
+            localStorage.setItem("cart", JSON.stringify(updatedCartAddOne));
+            return updatedCartAddOne;
 
-            localStorage.setItem("cart", JSON.stringify(updatedCart));
-            return updatedCart
-        } else {
-            const newItem = {
-                id: action.payload.id,
-                price: action.payload.price,
-                title: action.payload.title,
-                description: action.payload.description,
-                image: action.payload.image,
-                count: 1,
-            };
+        case actionTypes.REMOVE_ONE:
+            const updatedCartRemoveOne = [...state];
+            const elemenToUpdateRemoveOne = updatedCartRemoveOne.find((e) => e.id === action.payload);
 
-            const updatedCart = [...state, newItem];
-            localStorage.setItem("cart", JSON.stringify(updatedCart));
-            return updatedCart
-        }
+            if (elemenToUpdateRemoveOne.count > 1) {
+                elemenToUpdateRemoveOne.count = elemenToUpdateRemoveOne.count - 1;
+            }
 
-    }
-    else if (action.type === 'ADD_ONE') {
-        const updatedCart = [...state];
-        const elemenToUpdate = updatedCart.find((e) => e.id === action.payload);
+            localStorage.setItem("cart", JSON.stringify(updatedCartRemoveOne));
+            return updatedCartRemoveOne;
 
-        elemenToUpdate.count = elemenToUpdate.count + 1;
-
-        localStorage.setItem("cart", JSON.stringify(updatedCart));
-        return updatedCart
-    }
-    else if (action.type === 'REMOVE_ONE') {
-        const updatedCart = [...state];
-        const elemenToUpdate = updatedCart.find((e) => e.id === action.payload);
-
-        if (elemenToUpdate.count > 1) {
-            elemenToUpdate.count = elemenToUpdate.count - 1;
-        }
-
-
-        localStorage.setItem("cart", JSON.stringify(updatedCart));
-        return updatedCart
-    }
-    else {
-        return state
+        default:
+            return state;
     }
 }
+
+
+export default Reducer;

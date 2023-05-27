@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
 import MainRoute from "./MainRoute";
 import Grid from "./components/Grid";
-import Layout from './Layout'
+import Layout from './Layout';
 import { Admin, AdminOrders, Landing, Cart, Login, Register } from './pages';
 
 function App() {

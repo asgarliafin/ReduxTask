@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect } from "react";
 import {
   Avatar,
   CssBaseline,
@@ -15,13 +15,12 @@ import {
 
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { Link, useNavigate } from "react-router-dom";
-
 import { Formik, Form, Field } from "formik";
 import { TextField } from "formik-mui";
 import * as Yup from "yup";
 
-
 const defaultTheme = createTheme();
+
 const SignupSchema = Yup.object().shape({
   firstName: Yup.string()
     .min(2, "Too Short!")
@@ -33,19 +32,39 @@ const SignupSchema = Yup.object().shape({
     .required("Required"),
   email: Yup.string().email("Invalid email").required("Required"),
   password: Yup.string()
-    .min(8, "At least 8 symols")
+    .min(8, "At least 8 characters")
     .matches(
       /^(?=.*[A-Z])(?=.*\d).+$/,
-      "Password should contain capital letter and number"
+      "Password should contain a capital letter and a number"
     ),
 });
-export default function Register() {
+
+ const Register = ()=> {
   const navigate = useNavigate();
-  React.useEffect(() => {
+
+  useEffect(() => {
     if (localStorage.getItem("token")) {
       navigate("/Products");
     }
   }, []);
+
+  const handleSubmit = (values, { setSubmitting }) => {
+    setTimeout(() => {
+      setSubmitting(false);
+      const userId = Math.floor(Math.random() * 100);
+      const newUser = { ...values, userId };
+      
+      let localStorageData = [];
+      if (localStorage.getItem("users")) {
+        localStorageData = JSON.parse(localStorage.getItem("users"));
+      }
+      const newLocalStorageData = JSON.stringify([...localStorageData, newUser]);
+      localStorage.setItem("users", newLocalStorageData);
+
+      navigate("/Login");
+    }, 500);
+  };
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
@@ -68,32 +87,15 @@ export default function Register() {
           <Formik
             validationSchema={SignupSchema}
             initialValues={{
+              firstName: "",
+              lastName: "",
               email: "",
               password: "",
             }}
-            onSubmit={(values, { setSubmitting }) => {
-              setTimeout(() => {
-                setSubmitting(false);
-                const userId = Math.floor(Math.random * 100);
-                const newUser = { ...values, userId };
-                if (localStorage.getItem("users")) {
-                  const localStorageData = JSON.parse(
-                    localStorage.getItem("users")
-                  );
-                  const newLocastorageData = JSON.stringify([
-                    ...localStorageData,
-                    newUser,
-                  ]);
-                  localStorage.setItem("users", newLocastorageData);
-                } else {
-                  localStorage.setItem("users", JSON.stringify([newUser]));
-                }
-                navigate("/Login");
-              }, 500);
-            }}
+            onSubmit={handleSubmit}
           >
             {({ submitForm, isSubmitting }) => (
-              <Form component="form" noValidate sx={{ mt: 3 }}>
+              <Form noValidate sx={{ mt: 3 }}>
                 <Grid container spacing={2}>
                   <Grid item xs={12} sm={6}>
                     <Field
@@ -154,6 +156,8 @@ export default function Register() {
                   fullWidth
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}
+                  disabled={isSubmitting}
+                  onClick={submitForm}
                 >
                   Sign Up
                 </Button>
@@ -172,3 +176,5 @@ export default function Register() {
     </ThemeProvider>
   );
 }
+
+export default Register;

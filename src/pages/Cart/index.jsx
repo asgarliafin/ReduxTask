@@ -9,6 +9,7 @@ import Button from "@mui/joy/Button";
 import { Container, IconButton } from "@mui/material";
 import { AuthContext } from "../../context/Auth";
 import { useDispatch, useSelector } from "react-redux";
+import * as actionTypes from '../../redux/action/actionTypes';
 function Cart() {
   const { isAuth } = useContext(AuthContext);
   const [data, setData] = React.useState({
@@ -44,18 +45,18 @@ function Cart() {
     setData({ address: "", status: "sent" });
   };
   const handleRemove = (id) => {
-    dispatch({ type: "REMOVE_ITEM", payload: id });
+    dispatch({ type: actionTypes.REMOVE_ITEM, payload: id });
   };
   const addOne = (id) => {
-    dispatch({ type: "ADD_ONE", payload: id });
+    dispatch({ type: actionTypes.ADD_ONE, payload: id });
   };
   const removeOne = (id) => {
-    dispatch({ type: "REMOVE_ONE", payload: id });
+    dispatch({ type: actionTypes.REMOVE_ONE, payload: id });
   };
 
   return (
     <Container style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-      <h1>Total price {totalPrice()}</h1>
+      <h1 className="total-price">Total price {totalPrice()}</h1>
       {cart?.map((e, i) => (
         <div className="cartItem" key={i}>
           <h3>{i + 1}</h3>
@@ -73,7 +74,7 @@ function Cart() {
             </IconButton>
           </div>
 
-          <Button onClick={() => handleRemove(e.id)}>Delete</Button>
+          <Button onClick={() => handleRemove(e.id)} >Delete</Button>
         </div>
       ))}
       <form id="demo" onSubmit={handleSubmit}>
