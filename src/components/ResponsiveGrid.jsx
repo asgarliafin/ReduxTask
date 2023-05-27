@@ -9,7 +9,7 @@ import axios from "axios";
 
 
 export default function ResponsiveGrid() {
-  const { data, isLoading, error } = useQuery("repoDtata", () => {
+  const { data, isLoading } = useQuery("repoDtata", () => {
     return axios.get("https://fakestoreapi.com/products");
   });
   if (isLoading) return "Loading...";

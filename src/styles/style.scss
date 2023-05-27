@@ -1,6 +1,7 @@
 *{
     padding: 0;
     margin: 0;
+    box-sizing: border-box;
 }
 
 .cartItem {
@@ -27,4 +28,40 @@
 .cardProduct{
     background-color: darkcyan !important;
     border-radius: 0 !important;
+}
+
+.mainID{
+    width: 10% !important;
+    background: darkblue;
+}
+
+.mainTitle, .mainDescription{
+    min-width: 475px !important;
+    max-width: 475px !important;
+    background: darkorchid ;
+}
+
+.mainPrice{
+    background: pink;
+    text-align: center !important;
+    display: flex  !important;
+    justify-content: space-between !important;
+}
+
+.mainPrice > div{
+    min-width: 60px !important;
+    max-width: 60px !important;
+    display: flex !important;
+    justify-content: center !important;
+    text-align: center !important;
+}
+
+.mainDelete, .mainEdit{
+    min-width: 130px !important;
+    max-width: 130px !important;
+    display: flex !important;
+    justify-content: center !important;
+}
+.mainEdit {
+    justify-content: flex-start !important;
 }

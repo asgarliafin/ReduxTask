@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import { FavoriteBorder } from "@mui/icons-material";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import FormControl from "@mui/joy/FormControl";

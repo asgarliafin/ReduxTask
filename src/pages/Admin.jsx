@@ -1,9 +1,6 @@
 import * as React from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { Container } from "@mui/system";
-import { useQuery } from "react-query";
 import axios from "axios";
-import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import { LinearProgress } from "@mui/material";
 import { Formik, Form, Field } from "formik";
@@ -51,19 +48,25 @@ export default function DataTable() {
     setOpen(false);
   };
   const columns = [
-    { field: "id", headerName: "ID", width: 70 },
-    { field: "title", headerName: "Title", width: 500 },
-    { field: "description", headerName: "Description", width: 700 },
+    { field: "id", headerName: "ID", width: 70,
+    cellClassName: 'mainID', },
+    { field: "title", headerName: "Title", width: 500,
+    cellClassName: 'mainTitle', 
+  },
+    { field: "description", headerName: "Description", width: 470,
+    cellClassName: 'mainDescription',  },
     {
       field: "price",
       headerName: "Price",
       type: "number",
-      width: "1fr",
+      width: "130px",
+      cellClassName: 'mainPrice', 
     },
     {
       field: "delete",
       headerName: "Delete",
-      width: 100,
+      width: 190,
+      cellClassName: 'mainDelete',
       renderCell: (params) => (
         <Button
           variant="outlined"
@@ -71,13 +74,15 @@ export default function DataTable() {
           onClick={() => handleClickOpen(params.row.id)}
         >
           Delete
-        </Button>
+
+        </Button>   
       ),
     },
     {
       field: "edit",
       headerName: "Edit",
-      width: 100,
+      width: 130,
+      cellClassName: 'mainDelete',
       renderCell: (params) => (
         <Button
           variant="outlined"
@@ -96,9 +101,9 @@ export default function DataTable() {
     axios.get("https://fakestoreapi.com/products").then((e) => {
       const newData = e.data.map((e) => ({
         id: e.id,
-        title: e.title,
-        price: e.price,
-        description: e.description,
+        title: String(e.title).slice(0, 45),
+        price: String(e.price).slice(0, 45),
+        description: String(e.description).slice(0, 45),
       }));
       setRowss(newData);
     });
@@ -108,7 +113,7 @@ export default function DataTable() {
     getData();
   }, []);
   return (
-    <div style={{ height: 400, width: "100%" }}>
+    <div>
       <Dialog open={openCreate} onClose={handleCloseCreate}>
         <DialogTitle>Create</DialogTitle>
         <DialogContent>
@@ -286,9 +291,10 @@ export default function DataTable() {
         <DataGrid
           rows={rowss}
           columns={columns}
+          
           initialState={{
             pagination: {
-              paginationModel: { page: 0, pageSize: 5 },
+              paginationModel: { page: 0, pageSize: 10 },
             },
           }}
           pageSizeOptions={[5, 10]}
