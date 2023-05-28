@@ -30,7 +30,6 @@ export default function DataTable() {
     axios
       .delete(`https://fakestoreapi.com/products/${itemToDelete}`)
       .then((e) => {
-        console.log(e);
         setItemToDelee(null);
         getData();
         setOpen(false);
@@ -139,7 +138,6 @@ export default function DataTable() {
               axios
                 .post(`https://fakestoreapi.com/products`, values)
                 .then((e) => {
-                  console.log(e);
                   setSubmitting(false);
                   handleCloseCreate();
                 });
@@ -222,7 +220,6 @@ export default function DataTable() {
                   values
                 )
                 .then((e) => {
-                  console.log(e);
                   setSubmitting(false);
                   handleCloseEdit();
                 });
