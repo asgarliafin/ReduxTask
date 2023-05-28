@@ -1,18 +1,14 @@
-import React, { useContext } from "react";
-import AddIcon from "@mui/icons-material/Add";
-import RemoveIcon from "@mui/icons-material/Remove";
-import FormControl from "@mui/joy/FormControl";
-import FormLabel from "@mui/joy/FormLabel";
-import FormHelperText from "@mui/joy/FormHelperText";
-import Input from "@mui/joy/Input";
-import Button from "@mui/joy/Button";
+import React, { useState, useContext } from "react";
+import { Add as AddIcon, Remove as RemoveIcon } from "@mui/icons-material";
+import { FormControl, FormLabel, FormHelperText, Input, Button } from "@mui/joy";
 import { Container, IconButton } from "@mui/material";
 import { AuthContext } from "../../context/Auth";
 import { useDispatch, useSelector } from "react-redux";
 import * as actionTypes from '../../redux/action/actionTypes';
-function Cart() {
+
+const Cart = () => {
   const { isAuth } = useContext(AuthContext);
-  const [data, setData] = React.useState({
+  const [data, setData] = useState({
     address: "",
     status: "initial",
   });
@@ -60,15 +56,14 @@ function Cart() {
       {cart?.map((e, i) => (
         <div className="cartItem" key={i}>
           <h3>{i + 1}</h3>
-          <img src={e?.image} style={{ height: 50, width : 50 , borderRadius : "100%"}} />
+          <img src={e?.image} style={{ height: 50, width: 50, borderRadius: "100%" }} />
           <div className="title">{e?.title}</div>
           <div className="price">{e?.price}$</div>
           <div style={{ display: "flex", alignItems: "center" }}>
-            {" "}
             <IconButton onClick={() => removeOne(e.id)}>
               <RemoveIcon />
             </IconButton>
-            <div>x{e.count && e.count}</div>
+            <div>x{e?.count}</div>
             <IconButton onClick={() => addOne(e.id)}>
               <AddIcon />
             </IconButton>
@@ -126,3 +121,5 @@ function Cart() {
 }
 
 export default Cart;
+
+
