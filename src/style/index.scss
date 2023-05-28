@@ -70,8 +70,12 @@
 }
 
 .cardProduct {
-    background-color: darkcyan !important;
-    border-radius: 0 !important;
+    // background-color: darkcyan !important;
+    border-radius: 10px !important;
+
+    img{
+        border-radius: 5px !important;
+    }
 }
 
 .mainID {
@@ -89,4 +93,8 @@
 
 .mainEdit {
     justify-content: flex-start !important;
+}
+
+.css-k008qs{
+    align-items: center !important;
 }

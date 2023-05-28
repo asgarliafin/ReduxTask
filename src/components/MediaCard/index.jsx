@@ -1,36 +1,37 @@
 import * as React from "react";
-import Card from "@mui/joy/Card";
-import Typography from "@mui/joy/Typography";
-import AspectRatio from "@mui/joy/AspectRatio";
-import Button from "@mui/joy/Button";
+import {Card, Typography, AspectRatio, Button} from '@mui/joy'
 import { Box } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 
-export default function ImgMediaCard({ itemData }) {
+const MediaCard = ({ itemData }) => {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state);
+  
   const isInCart = () => {
     const existingItemIndex = cart.findIndex((item) => item.id === itemData.id);
     return existingItemIndex !== -1 ? true : false;
   };
+
   const handleRemove = () => {
     dispatch({ type: "REMOVE_ITEM", payload: itemData.id });
   };
+
   const addToChart = () => {
     dispatch({ type: "ADD_ITEM", payload: itemData });
   };
+
   return (
-    <Card variant="outlined" sx={{ width: 320 }} className={"cardProduct"}>
+    <Card variant="outlined" sx={{ width: 255 }} className={"cardProduct"}>
       <Typography
         level="h2"
         fontSize="md"
         sx={{ mb: 1 }}
       >
-        {itemData.title}
+        {String(itemData.title).slice(0, 25)}
       </Typography>
       <Typography level="body2">{itemData.category}</Typography>
 
-      <AspectRatio minHeight="120px" maxHeight="200px" sx={{ my: 2 , borderRadius :0}}>
+      <AspectRatio minHeight="120px" maxHeight="250px" sx={{ my: 2 , borderRadius :7}}>
         <img src={itemData.image} loading="lazy" alt="" />
       </AspectRatio>
       <Box sx={{ display: "flex" }}>
@@ -44,15 +45,25 @@ export default function ImgMediaCard({ itemData }) {
           <Button
             variant="solid"
             size="sm"
+            style={{
+              paddingInline : "10px",
+              height : "40px",
+              boxSizing : "border-box"
+            }}
             color="success"
             aria-label="Explore Bahamas Islands"
             sx={{ ml: "auto", fontWeight: 600 }}
             onClick={addToChart}
           >
-            Səbətə əlavə et
+            Əlavə et
           </Button>
         ) : (
           <Button
+          style={{
+            paddingInline : "10px",
+            height : "40px",
+            boxSizing : "border-box"
+          }}
             variant="solid"
             size="sm"
             color="primary"
@@ -67,3 +78,5 @@ export default function ImgMediaCard({ itemData }) {
     </Card>
   );
 }
+
+export default MediaCard;
